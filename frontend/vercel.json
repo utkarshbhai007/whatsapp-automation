@@ -1,5 +1,5 @@
 {
   "env": {
-    "NEXT_PUBLIC_API_BASE": "https://your-backend-url.onrender.com"
+    "NEXT_PUBLIC_API_BASE": "https://backend-kw60vhy7y-drutkarshbarad-gmailcoms-projects.vercel.app"
   }
 }
