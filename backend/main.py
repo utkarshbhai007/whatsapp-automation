@@ -1,19 +1,40 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from starlette.middleware.base import BaseHTTPMiddleware
 import subprocess
 import os
 import threading
 import uvicorn
 
+class CORSHeadersMiddleware(BaseHTTPMiddleware):
+    async def dispatch(self, request, call_next):
+        response = await call_next(request)
+        response.headers["Access-Control-Allow-Origin"] = "https://front-whatsapp-two.vercel.app"
+        response.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS"
+        response.headers["Access-Control-Allow-Headers"] = "Content-Type"
+        return response
+
 app = FastAPI()
+
+@app.get("/")
+async def root():
+    return {"message": "WhatsApp Automation Backend is running"}
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=[
+        "http://localhost:3000",
+        "https://front-whatsapp-q36nrzmmz-drutkarshbarad-gmailcoms-projects.vercel.app",
+        "https://front-whatsapp-two.vercel.app",
+        "https://whatsapp-automation-oaaudmggj-drutkarshbarad-gmailcoms-projects.vercel.app",
+        "https://whatsapp-automation-beta.vercel.app",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.add_middleware(CORSHeadersMiddleware)
 
 script_logs = []
 

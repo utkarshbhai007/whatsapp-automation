@@ -1,2 +1,5 @@
 fastapi
 uvicorn[standard]
+pywhatkit
+pyautogui
+pywin32
